@@ -16,13 +16,11 @@ func GenerateJWT(d time.Duration, signingKey []byte, cl map[string]interface{}) 
 	}
 
 	claims["authorized"] = true
-	// claims["client"] = "Elliot Forbes"
 	claims["exp"] = time.Now().Add(d).Unix()
 
 	tokenString, err := token.SignedString(signingKey)
 
 	if err != nil {
-		// fmt.Errorf("Something Went Wrong: %s", err.Error())
 		return "", err
 	}
 
