@@ -1,4 +1,4 @@
-module github.com/romanlryji/ajwt
+module romanlryji/ajwt
 
 go 1.17
 
