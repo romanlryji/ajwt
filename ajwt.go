@@ -3,7 +3,7 @@ package ajwt
 import (
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 func GenerateJWT(d time.Duration, signingKey []byte, cl map[string]interface{}) (string, error) {
