@@ -34,7 +34,7 @@ type TokenClaims struct {
 	Email string
 }
 
-func ParseToken(accessToken string, signingKey string) (TokenClaims, error) {
+func ParseToken(accessToken string, signingKey string) (*TokenClaims, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &TokenClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")
@@ -43,12 +43,12 @@ func ParseToken(accessToken string, signingKey string) (TokenClaims, error) {
 		return []byte(signingKey), nil
 	})
 	if err != nil {
-		return TokenClaims{}, err
+		return &TokenClaims{}, err
 	}
 
-	claims, ok := token.Claims.(TokenClaims)
+	claims, ok := token.Claims.(*TokenClaims)
 	if !ok {
-		return TokenClaims{}, errors.New("token claims are not of type *tokenClaims")
+		return &TokenClaims{}, errors.New("token claims are not of type *tokenClaims")
 	}
 
 	return claims, nil
